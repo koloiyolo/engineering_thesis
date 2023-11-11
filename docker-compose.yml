@@ -4,5 +4,5 @@ services:
     container_name: listening_server
     build: ./listening_server
     ports:
-      - 5014:514
+      - 5014:514/udp
      
