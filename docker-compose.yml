@@ -1,0 +1,8 @@
+
+services:
+  logging_server:
+    container_name: logging_server
+    build: ./logging_server
+    ports:
+     - 514:5514
+     

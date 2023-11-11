@@ -1,0 +1,17 @@
+# Ignore compiled binaries
+logging_server/target/
+target/
+
+# Ignore IDE or editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary files or logs
+*.log
+*.tmp
