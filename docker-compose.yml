@@ -1,8 +1,8 @@
 
 services:
-  logging_server:
-    container_name: logging_server
-    build: ./logging_server
+  listening_server:
+    container_name: listening_server
+    build: ./listening_server
     ports:
-     - 514:5514
+      - 5014:514
      
