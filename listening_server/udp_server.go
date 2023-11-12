@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 )
 
 func startUDPServer() {
@@ -17,13 +18,18 @@ func startUDPServer() {
 
 	buf := make([]byte, 1024)
 	for {
-		n, addr, err := pc.ReadFrom(buf)
-		if err != nil {
-			log.Fatal(err)
+		for isCollectingLogs {
+			n, addr, err := pc.ReadFrom(buf)
+			if err != nil {
+				log.Fatal(err)
+			}
+			msg := string(buf[:n])
+			fmt.Printf("Received UDP message from %s: %s\n", addr, msg)
+
+			//todo rabbit implementation
 		}
 
-		msg := string(buf[:n])
-		fmt.Printf("Received UDP message from %s: %s\n", addr, msg)
-		// Additional logic to handle the UDP message, e.g., send to RabbitMQ
+		fmt.Println("Log collection is currently stopped. Waiting for reactivation...")
+		time.Sleep(1 * time.Second)
 	}
 }
