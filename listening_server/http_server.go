@@ -17,6 +17,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		data := string(body)
+		fmt.Println("Received data:", data)
 		if data == "false" {
 			isCollectingLogs = false
 			fmt.Fprintf(w, "Log collection stopped")
