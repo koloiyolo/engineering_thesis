@@ -5,4 +5,5 @@ services:
     build: ./listening_server
     ports:
       - 5014:514/udp
+      - 3000:3000
      
