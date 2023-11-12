@@ -1,13 +1,14 @@
-FROM debian:latest
+FROM golang:1.21
 
-RUN apt-get update -y
-RUN apt-get install cargo -y
+WORKDIR /usr/src/udp_server
 
-WORKDIR /usr/src/server
-EXPOSE 514/udp
+COPY go.mod .
+
+RUN go mod download
+
 COPY . .
+RUN go build -v -o /usr/local/bin/udp_server
 
-RUN cargo build --release
-RUN cargo install --path .
+EXPOSE 514/udp
 
-CMD ["target/release/listening_server"]
+CMD ["udp_server"]

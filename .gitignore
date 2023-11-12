@@ -1,6 +1,7 @@
 # Ignore compiled binaries
 logging_server/target/
 target/
+scrapped_ideas/
 
 # Ignore IDE or editor files
 .vscode/
