@@ -10,6 +10,7 @@ scrapped_ideas/
 *.sublime-workspace
 
 # Ignore system-specific files
+db/
 .DS_Store
 Thumbs.db
 
