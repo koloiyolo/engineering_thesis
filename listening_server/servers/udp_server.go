@@ -1,4 +1,4 @@
-package main
+package servers
 
 import (
 	"context"
@@ -16,7 +16,7 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func startUDPServer() {
+func StartUDPServer() {
 	//rabbitmq conn init
 
 	conn, err := amqp.Dial("amqp://guest:guest@rabbit:5672/")

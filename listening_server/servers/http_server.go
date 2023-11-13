@@ -1,4 +1,4 @@
-package main
+package servers
 
 import (
 	"fmt"
@@ -32,7 +32,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func startHTTPServer() {
+func StartHTTPServer() {
 	http.HandleFunc("/control-logs", handleRequest)
 	fmt.Println("HTTP server started on port 3000")
 	if err := http.ListenAndServe(":3000", nil); err != nil {
