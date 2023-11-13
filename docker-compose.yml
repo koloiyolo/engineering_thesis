@@ -14,9 +14,6 @@ services:
     depends_on:
       - buffer_database_linker
     image: rabbitmq:3.12
-    environment:
-      RABBITMQ_DEFAULT_USER: root
-      RABBITMQ_DEFAULT_PASSWORD: password
     ports:
       - 5672:5672
   
