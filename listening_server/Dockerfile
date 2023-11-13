@@ -14,7 +14,7 @@ EXPOSE 3000
 
 
 COPY wait_for_rabbit.sh wait_for_rabbit.sh
-RUN chmod +x /app/wait-for-rabbit.sh
+RUN chmod +x wait-for-rabbit.sh
 
 # Command to start your service with the wait script
 CMD ["./wait-for-rabbit.sh", "udp_server"]
