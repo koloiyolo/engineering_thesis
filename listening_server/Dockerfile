@@ -13,7 +13,7 @@ EXPOSE 514/udp
 EXPOSE 3000
 
 
-COPY wait-for-rabbit.sh .
+COPY wait_for_rabbit.sh wait_for_rabbit.sh
 RUN chmod +x /app/wait-for-rabbit.sh
 
 # Command to start your service with the wait script
