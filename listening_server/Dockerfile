@@ -12,4 +12,9 @@ RUN go build -v -o /usr/local/bin/udp_server
 EXPOSE 514/udp
 EXPOSE 3000
 
-CMD ["udp_server"]
+
+COPY wait-for-rabbit.sh /wait-for-rabbit.sh
+RUN chmod +x /app/wait-for-rabbit.sh
+
+# Command to start your service with the wait script
+CMD ["./wait-for-rabbit.sh", "udp_server"]
