@@ -1,6 +1,10 @@
 package main
 
+import (
+	"listening_server/servers"
+)
+
 func main() {
-	go startHTTPServer()
-	startUDPServer()
+	go servers.StartHTTPServer()
+	servers.StartUDPServer()
 }
