@@ -1,21 +1,21 @@
 
 services:
-  listening_server:
-    container_name: listening_server_et
-    depends_on:
-      - rabbit
-    build: ./listening_server
-    ports:
-      - 5014:514/udp
-      - 3000:3000
+  # listening_server:
+  #   container_name: listening_server_et
+  #   depends_on:
+  #     - rabbit
+  #   build: ./listening_server
+  #   ports:
+  #     - 5014:514/udp
+  #     - 3000:3000
 
-  rabbit:
-    container_name: rabbit_et
-    depends_on:
-      - buffer_database_linker
-    image: rabbitmq:3.12
-    ports:
-      - 5672:5672
+  # rabbit:
+  #   container_name: rabbit_et
+  #   depends_on:
+  #     - buffer_database_linker
+  #   image: rabbitmq:3.12
+  #   ports:
+  #     - 5672:5672
   
   db:
     container_name: db_et
@@ -34,15 +34,24 @@ services:
       - 8081:80
      
 
-  buffer_database_linker:
-    container_name: buffer_database_linker_et
+  # buffer_database_linker:
+  #   container_name: buffer_database_linker_et
+  #   depends_on:
+  #     - db
+  #   build: ./buffer_database_linker
+  #   ports:
+  #     - 8002:80
+
+  syslog-ng:
+    container_name: syslog-ng
     depends_on:
       - db
-    build: ./buffer_database_linker
+    build: ./syslog-ng
     ports:
-      - 8002:80
-    
-
+      - 5014:514/udp
+      - 6001:601
+    volumes:
+      - ./logs:/var/log
 
 
 volumes:
