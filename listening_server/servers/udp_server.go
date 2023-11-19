@@ -42,9 +42,7 @@ func StartUDPServer() {
 
 	//udp socket init
 	pc, err := net.ListenPacket("udp", "0.0.0.0:514")
-	if err != nil {
-		log.Fatal(err)
-	}
+	failOnError(err, "Failed to initialize UDP socket")
 	defer pc.Close()
 
 	fmt.Println("UDP server started on port 514")
@@ -53,9 +51,7 @@ func StartUDPServer() {
 	for {
 		for isCollectingLogs {
 			n, addr, err := pc.ReadFrom(buf)
-			if err != nil {
-				log.Fatal(err)
-			}
+			failOnError(err, "Failed to read message from channel")
 			msg := string(buf[:n])
 			fmt.Printf("Received UDP message from %s: %s\n", addr, msg)
 
@@ -70,7 +66,7 @@ func StartUDPServer() {
 					Body:        []byte(body),
 				})
 			failOnError(err, "Failed to publish a message")
-			log.Printf(" [x] Sent %s\n", body)
+			log.Printf("Sent %s to rabbitmq\n", body)
 		}
 
 		fmt.Println("Log collection is currently stopped. Waiting for reactivation...")
