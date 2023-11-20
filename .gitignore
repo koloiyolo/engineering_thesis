@@ -11,6 +11,7 @@ scrapped_ideas/
 
 # Ignore system-specific files
 db/
+!db/logs
 .DS_Store
 Thumbs.db
 

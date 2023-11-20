@@ -6,5 +6,6 @@ EXPOSE 514/udp
 EXPOSE 601
 
 WORKDIR /etc/syslog-ng
+COPY wait_for_db.sh .
 
-CMD ["-edv"]s
+CMD ["-edv"]
