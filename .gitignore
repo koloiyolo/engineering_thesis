@@ -2,6 +2,8 @@
 logging_server/target/
 target/
 scrapped_ideas/
+dot.sh
+
 
 # Ignore IDE or editor files
 .vscode/
