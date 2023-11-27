@@ -86,12 +86,12 @@ function encode_data($data)
                     } else {
                         // create new mapping
                         $tmp_mappings[$key][$value] = count($tmp_mappings[$key]);
-                        array_push($dummy, $tmp_mappings[$key][$value]);
+                        $dummy[] = $tmp_mappings[$key][$value];
                     }
                 } else {
                     // this if always goes here
                     $tmp_mappings[$key] = [$value => 0];
-                    array_push($dummy, 0);
+                    $dummy[] = 0;
                 }
             }
 
