@@ -1,14 +1,14 @@
 <?php
 
-$data = get_data("root", "password");
-$data_copy = $data;
+echo get_data("root", "password");
+// $data_copy = $data;
 
-$data = encode_data($data);
-$data = kmeans($data, 3, 200);
-$data = decode_data($data, $data_copy);
+// $data = encode_data($data);
+// $data = kmeans($data, 3, 200);
+// $data = decode_data($data, $data_copy);
 
-header('Content-Type: application/json');
-echo json_encode($data);
+// header('Content-Type: application/json');
+// echo json_encode($data);
 
 
 
