@@ -1,6 +1,6 @@
 <?php
 $data = get_data("root", "password");
-
+$data = encode_data($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, 3, 200);
