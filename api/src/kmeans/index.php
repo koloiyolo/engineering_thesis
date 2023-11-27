@@ -1,18 +1,15 @@
 <?php
-$data = get_data("root", "password");
-$data = json_decode($data);
-$data = convert_from_obj_to_array_of_str($data);
+$data = json_decode($get_data("root", "password"));
 
+var_dump(encode_data($data));
 $encodingResult = encode_data($data);
 $data = $encodingResult['encodedData'];
 $labelMapping = $encodingResult['labelMapping'];
 $data = kmeans($data, 3, 200);
-$data = decode_data($data, $labelMapping);
+//$data = decode_data($data, $labelMapping);
 
 header('Content-Type: application/json');
 echo json_encode($data);
-
-
 
 
 // execute kmeans algorithm on "algorithms" server and retrive result
@@ -41,29 +38,34 @@ function kmeans($data, $centroids, $iters)
 // encode data
 function encode_data($data)
 {
-    $flatData = array_merge(...array_map('array_values', $data));
-    $uniqueValues = array_unique($flatData);
-    $labelMapping = array_flip($uniqueValues);
-    $encodedData = array_map(function ($innerArray) use ($labelMapping) {
-        return array_map(function ($value) use ($labelMapping) {
-            return $labelMapping[$value];
-        }, $innerArray);
-    }, $data);
+    $result = [];
+    $mappings = [];
+    // iter through elem of object
+    foreach ($data as $object) {
+        $dummy = [];
+        // iter through elem of object
+        foreach ($object as $key => $value) {
+            // if exists mapping with the value in the key
+            if (isset($mappings[$key][$value])) {
+                $dummy[] = $mappings[$key][$value];
+            } else {
+                // create new mapping
+                $mappings[$key][] = [$value => count($mappings[$key])];
+                $dummy[] = $mappings[$key][$value];
+            }
+        }
+        $result[] = $dummy;
+    }
 
-    return ['encodedData' => $encodedData, 'labelMapping' => $labelMapping];
+    return ['result' => $result, 
+            'mappings' => $mappings];
 }
 
 
 // decode data
 function decode_data($encodedData, $labelMapping)
 {
-    // Decode the data
-    return array_map(function ($innerArray) use ($labelMapping) {
-        // Map each encoded value in the inner array using the label mapping
-        return array_map(function ($encodedValue) use ($labelMapping) {
-            return $labelMapping[$encodedValue];
-        }, $innerArray);
-    }, $encodedData);
+
 }
 
 
@@ -89,22 +91,5 @@ function get_data($user, $password)
     $statement->close();
 
     return json_encode($data);
-}
-
-// f$@k OOP
-function convert_from_obj_to_array_of_str($data)
-{
-    $result = [];
-    foreach($data as $object) {
-        $obj = [ 
-            'datetime' => $object->datetime,
-            'host'     => $object->host,
-            'program'  => $object->program,
-            'message'  => $object->message
-        ];
-        $result[] = $obj;
-    }
-
-    return $result;
 }
 ?>
