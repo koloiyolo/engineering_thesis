@@ -11,7 +11,7 @@ echo json_encode($data);
 
 
 // execute kmeans algorithm on "algorithms" server and retrive result
-function kmeans($data, $centroids, $iters) 
+function kmeans($data, $centroids, $iters)
 {
     $url = 'http://algorithms:5000/kmeans';
     $postData = [
@@ -41,6 +41,7 @@ function kmeans($data, $centroids, $iters)
 function encode_data($data)
 {
     $result = [];
+    $tmp_mappings = [];
     $mappings = [];
     // iter through elem of object
     foreach ($data as $object) {
@@ -48,26 +49,31 @@ function encode_data($data)
         // iter through elem of object
         foreach ($object as $key => $value) {
             // if exists mapping with the value in the key
-            if (isset($mappings[$key])) {
-                if (isset($mappings[$key][$value])) {
-                    $dummy[] = $mappings[$key][$value];
+            if ($key != 'datetime') {
+                if (isset($tmp_mappings[$key])) {
+                    if (isset($tmp_mappings[$key][$value])) {
+                        $dummy[] = $tmp_mappings[$key][$value];
+                    } else {
+                        // create new mapping
+                        $tmp_mappings[$key][$value] = count($tmp_mappings[$key]);
+                        array_push($dummy, $tmp_mappings[$key][$value]);
+                    }
                 } else {
-                    // create new mapping
-                    $mappings[$key][$value] = count($mappings[$key]);
-                    array_push($dummy, $mappings[$key][$value]);
+                    // this if always goes here
+                    $tmp_mappings[$key] = [$value => 0];
+                    array_push($dummy, 0);
                 }
-            } else {
-                // this if always goes here
-                $mappings[$key] = [$value => 0];
-                array_push($dummy, 0);
             }
-            
+
         }
         $result[] = $dummy;
+        $mappings[array_to_string($dummy)] = $object;
     }
 
-    return ['result' => $result, 
-            'mappings' => $mappings];
+    return [
+        'result' => $result,
+        'mappings' => $mappings
+    ];
 }
 
 
@@ -81,7 +87,7 @@ function decode_data($encodedData, $labelMapping)
 // fetch data from db
 function get_data($user, $password)
 {
-    $mysqli = new mysqli("db", $user, $password,  "logs");
+    $mysqli = new mysqli("db", $user, $password, "logs");
 
     // catches errors from db connections
     if ($mysqli->connect_errno) {
@@ -100,5 +106,13 @@ function get_data($user, $password)
     $statement->close();
 
     return json_encode($data);
+}
+
+function array_to_string($array) {
+    $string = "";
+    foreach($array as $elem) {
+        $string .= $elem . ","; 
+    }
+    return $string;
 }
 ?>
