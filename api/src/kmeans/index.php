@@ -6,29 +6,6 @@ $mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, 3, 200);
 
-$data = [
-    [
-        'datetime' => '2023-01-01 12:00:00',
-        'key1' => 'value1',
-        'key2' => 'value2',
-    ],
-    [
-        'datetime' => '2023-01-01 13:00:00',
-        'key1' => 'value1',
-        'key2' => 'value3',
-    ],
-    [
-        'datetime' => '2023-01-01 14:00:00',
-        'key1' => 'value2',
-        'key2' => 'value2',
-    ],
-];
-
-
-$result = encode_data($data);
-
-// Display the result
-var_dump($result);
 
 header('Content-Type: application/json');
 echo json_encode($data);
