@@ -1,6 +1,7 @@
 <?php
 
-var_dump(get_data("root", "password"));
+$data = json_decode(get_data("root", "password"));
+echo $data;
 // $data_copy = $data;
 
 // $data = encode_data($data);
@@ -35,7 +36,6 @@ function kmeans($data, $centroids, $iters)
     var_dump($result);
     return $result;
 }
-
 
 // encode data
 function encode_data($data)
@@ -84,7 +84,7 @@ function get_data($user, $password)
     }
     $statement->close();
 
-    return $data;
+    return json_encode($data);
 }
 
 ?>
