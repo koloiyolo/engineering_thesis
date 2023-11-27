@@ -46,13 +46,19 @@ function encode_data($data)
         // iter through elem of object
         foreach ($object as $key => $value) {
             // if exists mapping with the value in the key
-            if (isset($mappings[$key][$value])) {
-                $dummy[] = $mappings[$key][$value];
+            if (isset($mappings[$key])) {
+                if (isset($mappings[$key][$value])) {
+                    $dummy[] = $mappings[$key][$value];
+                } else {
+                    // create new mapping
+                    $mappings[$key][] = [$value => count($mappings[$key])];
+                    $dummy[] = $mappings[$key][$value];
+                }
             } else {
-                // create new mapping
-                $mappings[$key][] = [$value => count($mappings[$key])];
+                $mappings[$key][] = [$value => 0];
                 $dummy[] = $mappings[$key][$value];
             }
+            
         }
         $result[] = $dummy;
     }
