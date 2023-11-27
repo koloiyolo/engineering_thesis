@@ -55,8 +55,8 @@ function encode_data($data)
                     $dummy[] = $mappings[$key][$value];
                 }
             } else {
-                $mappings[$key][] = [$value => 0];
-                $dummy[] = $mappings[$key][$value];
+                $mappings[] = [$key => [$value => 0]];
+                $dummy[] = 0;
             }
             
         }
