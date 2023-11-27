@@ -52,11 +52,11 @@ function encode_data($data)
                 } else {
                     // create new mapping
                     $mappings[$key][] = [$value => count($mappings[$key])];
-                    $dummy[] = $mappings[$key][$value];
+                    array_push($dummy, $mappings[$key][$value]);
                 }
             } else {
                 $mappings[] = [$key => [$value => 0]];
-                $dummy[] = 0;
+                array_push($dummy, 0);
             }
             
         }
