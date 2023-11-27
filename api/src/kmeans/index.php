@@ -96,7 +96,11 @@ function encode_data($data)
             }
 
         }
-        $result[] = $dummy;
+        $tmp = [];
+        foreach($dummy as $elem){
+            $tmp[] = $elem;
+        }
+        $result[] = $tmp;
         $mappings[array_to_string($dummy)] = $object;
     }
 
