@@ -1,5 +1,5 @@
 <?php
-$data = json_decode($get_data("root", "password"));
+$data = json_decode(get_data("root", "password"));
 
 var_dump(encode_data($data));
 $encodingResult = encode_data($data);
