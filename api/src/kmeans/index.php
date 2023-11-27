@@ -1,7 +1,7 @@
 <?php
 $data = json_decode(get_data("root", "password"));
 
-var_dump(encode_data($data));
+echo json_encode(encode_data($data));
 $encodingResult = encode_data($data);
 $data = $encodingResult['encodedData'];
 $labelMapping = $encodingResult['labelMapping'];
