@@ -2,11 +2,12 @@
 $data = get_data("root", "password");
 $data = json_decode($data);
 $data = convert_from_obj_to_array_of_str($data);
-$data_copy = $data;
 
-$data = encode_data($data);
+$encodingResult = encode_data($data);
+$data = $encodingResult['encodedData'];
+$labelMapping = $encodingResult['labelMapping'];
 $data = kmeans($data, 3, 200);
-$data = decode_data($data, $data_copy);
+$data = decode_data($data, $labelMapping);
 
 header('Content-Type: application/json');
 echo json_encode($data);
@@ -40,26 +41,29 @@ function kmeans($data, $centroids, $iters)
 // encode data
 function encode_data($data)
 {
-    $uniqueValues = array_unique($data);
+    $flatData = array_merge(...array_map('array_values', $data));
+    $uniqueValues = array_unique($flatData);
     $labelMapping = array_flip($uniqueValues);
-    return array_map(function ($value) use ($labelMapping) {
-        return $labelMapping[$value];
+    $encodedData = array_map(function ($innerArray) use ($labelMapping) {
+        return array_map(function ($value) use ($labelMapping) {
+            return $labelMapping[$value];
+        }, $innerArray);
     }, $data);
+
+    return ['encodedData' => $encodedData, 'labelMapping' => $labelMapping];
 }
 
 
 // decode data
-function decode_data($data, $data_copy)
+function decode_data($encodedData, $labelMapping)
 {
-    $labelMapping = array_combine(range(0, count($data_copy) - 1), $data_copy);
-
-    return array_map(function ($item) use ($labelMapping) {
-        if (is_array($item)) {
-            return decode_data($item, $labelMapping);
-        } else {
-            return $labelMapping[$item];
-        }
-    }, $data);
+    // Decode the data
+    return array_map(function ($innerArray) use ($labelMapping) {
+        // Map each encoded value in the inner array using the label mapping
+        return array_map(function ($encodedValue) use ($labelMapping) {
+            return $labelMapping[$encodedValue];
+        }, $innerArray);
+    }, $encodedData);
 }
 
 
