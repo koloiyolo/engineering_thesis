@@ -1,3 +1,5 @@
 #!/bin/bash
 
-sleep 90
+
+# 60 was too long
+sleep 30
