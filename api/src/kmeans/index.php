@@ -1,6 +1,7 @@
 <?php
 $data = get_data("root", "password");
 $data = encode_data($data);
+var_dump($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, 3, 200);
@@ -14,11 +15,13 @@ echo json_encode($data);
 function kmeans($data, $centroids, $iters)
 {
     $url = 'http://algorithms:5000/kmeans';
+
     $postData = [
-        'data' => json_encode($data),
+        'data' => $data, 
         'centroids' => $centroids,
         'iterations' => $iters,
     ];
+
     $options = [
         'http' => [
             'header' => "Content-type: application/json\r\n",
@@ -26,6 +29,7 @@ function kmeans($data, $centroids, $iters)
             'content' => json_encode($postData),
         ],
     ];
+
     $context = stream_context_create($options);
 
     $result = file_get_contents($url, false, $context);
@@ -33,7 +37,10 @@ function kmeans($data, $centroids, $iters)
         echo "Error processing request";
         return false;
     }
+
+    echo "Server response: ";
     var_dump($result);
+
     return $result;
 }
 
