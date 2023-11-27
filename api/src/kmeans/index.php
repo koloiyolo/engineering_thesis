@@ -1,8 +1,7 @@
 <?php
-$data = json_encode(get_data("root", "password"));
+$data = json_decode(get_data("root", "password"));
+$data = encode_data($data);
 var_dump($data);
-// $data = encode_data($data);
-// var_dump($data);
 // $mappings = $data['mappings'];
 // $data = $data['result'];
 // $data = kmeans($data, 3, 200);
