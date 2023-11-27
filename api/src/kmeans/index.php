@@ -51,11 +51,12 @@ function encode_data($data)
                     $dummy[] = $mappings[$key][$value];
                 } else {
                     // create new mapping
-                    $mappings[$key][] = [$value => count($mappings[$key])];
+                    $mappings[$key][$value] = count($mappings[$key]);
                     array_push($dummy, $mappings[$key][$value]);
                 }
             } else {
-                $mappings[] = [$key => [$value => 0]];
+                // this if always goes here
+                $mappings[$key] = [$value => 0];
                 array_push($dummy, 0);
             }
             
