@@ -1,10 +1,10 @@
 <?php
-$data = json_decode(get_data("root", "password"));
+$data = get_data("root", "password");
 $data = encode_data($data);
-var_dump($data);
-// $mappings = $data['mappings'];
-// $data = $data['result'];
-// $data = kmeans($data, 3, 200);
+echo json_encode($data);
+$mappings = $data['mappings'];
+$data = $data['result'];
+$data = kmeans($data, 3, 200);
 
 $data = [
     [
@@ -96,12 +96,8 @@ function encode_data($data)
             }
 
         }
-        $tmp = [];
-        foreach($dummy as $elem){
-            $tmp[] = $elem;
-        }
-        $result[] = $tmp;
-        $mappings[array_to_string($dummy)] = $object;
+        $result[] = $dummy;
+        $mappings[] = $object;
     }
 
     return [
@@ -142,11 +138,4 @@ function get_data($user, $password)
     return json_encode($data);
 }
 
-function array_to_string($array) {
-    $string = "";
-    foreach($array as $elem) {
-        $string .= $elem . ","; 
-    }
-    return $string;
-}
 ?>
