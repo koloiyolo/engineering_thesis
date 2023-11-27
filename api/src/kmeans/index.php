@@ -1,5 +1,5 @@
 <?php
-$data = get_data("root", "password");
+$data = json_encode(get_data("root", "password"));
 var_dump($data);
 // $data = encode_data($data);
 // var_dump($data);
@@ -80,7 +80,7 @@ function encode_data($data)
         // iter through elem of object
         foreach ($object as $key => $value) {
             // if exists mapping with the value in the key
-            if ($key != 'datetime') {
+            if ($key !== "datetime") {
                 if (isset($tmp_mappings[$key])) {
                     if (isset($tmp_mappings[$key][$value])) {
                         $dummy[] = $tmp_mappings[$key][$value];
