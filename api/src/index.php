@@ -36,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $statement = $mysqli->prepare("SELECT * FROM logs");
         }
+        $statement->execute();
 
-        $data = $statement->execute();
-
+        $data = $statement->get_result();
         header('Content-Type: application/json');
         echo json_encode($data);
 
