@@ -1,5 +1,5 @@
 <?php
-$data = get_data("root", "password");
+$data = json_decode(get_data("root", "password"));
 $data = encode_data($data);
 echo json_encode($data);
 $mappings = $data['mappings'];
