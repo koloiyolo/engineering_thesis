@@ -1,12 +1,10 @@
 <?php
-$data = json_decode(get_data("root", "password"));
+$data = get_data("root", "password");
 
-echo json_encode(encode_data($data));
-$encodingResult = encode_data($data);
-$data = $encodingResult['encodedData'];
-$labelMapping = $encodingResult['labelMapping'];
+$mappings = $data['mappings'];
+$data = $data['result'];
 $data = kmeans($data, 3, 200);
-//$data = decode_data($data, $labelMapping);
+
 
 header('Content-Type: application/json');
 echo json_encode($data);
@@ -16,26 +14,30 @@ echo json_encode($data);
 function kmeans($data, $centroids, $iters) 
 {
     $url = 'http://algorithms:5000/kmeans';
-    $args = ['data' => json_encode($data), 'centroids' => $centroids, 'iterations' => $iters];
+    $postData = [
+        'data' => json_encode($data),
+        'centroids' => $centroids,
+        'iterations' => $iters,
+    ];
     $options = [
         'http' => [
-            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'header' => "Content-type: application/json\r\n",
             'method' => 'POST',
-            'content' => http_build_query($args),
+            'content' => json_encode($postData),
         ],
     ];
-
     $context = stream_context_create($options);
+
     $result = file_get_contents($url, false, $context);
     if ($result === false) {
-        echo "Error proccessing request";
+        echo "Error processing request";
+        return false;
     }
-
     var_dump($result);
     return $result;
 }
 
-// encode data
+// encode data working now
 function encode_data($data)
 {
     $result = [];
