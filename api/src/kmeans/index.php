@@ -4,7 +4,8 @@ $data = encode_data($data);
 echo json_encode($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
-$data = kmeans($data, 3, 200);
+$data = decode_data($data, $mappings);
+echo json_encode($data);
 
 
 header('Content-Type: application/json');
@@ -74,7 +75,7 @@ function encode_data($data)
 
         }
         $result[] = $dummy;
-        $mappings[] = $object;
+        $mappings[array_to_str($dummy)] = $object;
     }
 
     return [
@@ -85,9 +86,22 @@ function encode_data($data)
 
 
 // decode data
-function decode_data($encodedData, $labelMapping)
+function decode_data($data, $mappings)
 {
+    $result = [];
+    // foreach($data as $array) {
+        $tmp_array = [];
 
+        // to delete \/\/\/\/\/\/\
+        foreach($data as $elem) {
+        //foreach($array as $elem) {
+            $tmp = $mappings[array_to_str($elem)];
+            $tmp_array[] = $tmp;
+        }
+
+        $result[] = $tmp_array;
+   // }
+        return $result;
 }
 
 
@@ -115,4 +129,11 @@ function get_data($user, $password)
     return json_encode($data);
 }
 
+function array_to_str($array) {
+    $result = "";
+    foreach($array as $elem) {
+        $result .= $elem . ", ";
+    } 
+    return $result;
+}
 ?>
