@@ -1,6 +1,6 @@
 <?php
 
-echo get_data("root", "password");
+var_dump(get_data("root", "password"));
 // $data_copy = $data;
 
 // $data = encode_data($data);
