@@ -1,7 +1,8 @@
 <?php
-
-$data = json_decode(get_data("root", "password"));
+$data = get_data("root", "password");
 echo $data;
+$data = json_decode($data);
+
 // $data_copy = $data;
 
 // $data = encode_data($data);
