@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $statement->get_result();
         $data = [];
 
-        while ($row = $result->fetch_assoc()) {
+        foreach ($result as $row) {
             $data[] = $row;
         }
         $statement->close();
