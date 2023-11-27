@@ -1,17 +1,17 @@
 import json
-
 from flask import Flask, request, jsonify
+
 import kmeans
 
 app = Flask(__name__)
 
-
+# to execute call http://{servername}:{port}/kmeans with post arguments: "centroids", "iterations" and "data"
 @app.route('/kmeans', methods=['POST'])
 def kmeans_route():
     if request.method == 'POST':
         try:
             centroids = int(request.form.get('centroids'))
-            iters = int(request.form.get('iters'))
+            iters = int(request.form.get('iterations'))
             data = json.loads(request.form.get('data'))
             print(centroids)
             print(data)
