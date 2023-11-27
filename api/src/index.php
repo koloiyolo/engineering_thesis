@@ -41,9 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $statement->get_result();
         $data = [];
 
-        foreach ($result as $row) {
+        while ($row = $result->fetch_assoc()) {
             $data[] = $row;
         }
+        $statement->close();
 
         header('Content-Type: application/json');
         echo json_encode($data);
