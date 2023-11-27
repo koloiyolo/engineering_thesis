@@ -1,7 +1,7 @@
 <?php
 $data = get_data("root", "password");
 $data = json_decode($data);
-
+$data = convert_from_obj_to_array_of_str($data);
 $data_copy = $data;
 
 $data = encode_data($data);
@@ -87,4 +87,20 @@ function get_data($user, $password)
     return json_encode($data);
 }
 
+// f$@k OOP
+function convert_from_obj_to_array_of_str($data)
+{
+    $result = [];
+    foreach($data as $object) {
+        $obj = [ 
+            'datetime' => $object->datetime,
+            'host'     => $object->host,
+            'program'  => $object->program,
+            'message'  => $object->message
+        ];
+        $result[] = $obj;
+    }
+
+    return $result;
+}
 ?>
