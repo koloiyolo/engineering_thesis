@@ -144,25 +144,18 @@ function encode_message($message, &$groups){
             return $key;
         }
     }
-
-    preg_match('/(.*?)(?=msg=)/', $message, $matches);
     
-    if (!empty($matches)) {
-        $id = count($groups);
-        $groups[] = '/' . $matches[0] . '/';
+    if (preg_match('/(msg=)/', $message, $matches, PREG_OFFSET_CAPTURE)){
+        $regex = "/(" . substr($message, 0, $matches[0][1]) . ")/";
+        $id = count($groups[]);
+        $groups[] = [$id => $regex];
+        return $id;
+    } else {
+        $regex = "/(" . $message . ")/";
+        $id = count($groups[]);
+        $groups[] = [$id => $regex];
         return $id;
     }
-
-    preg_match('/(.*?)/', $message, $matches);
-    
-    if (!empty($matches)) {
-        $id = count($groups);
-        $groups[] = '/' . $matches[0] . '/';
-        return $id;
-    }
-
-
-    return null;
 }
 
 function array_to_str($array) {
