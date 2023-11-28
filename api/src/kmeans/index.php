@@ -153,6 +153,15 @@ function encode_message($message, &$groups){
         return $id;
     }
 
+    preg_match('/(.*?)/', $message, $matches);
+    
+    if (!empty($matches)) {
+        $id = count($groups);
+        $groups[] = '/' . $matches[0] . '/';
+        return $id;
+    }
+
+
     return null;
 }
 
