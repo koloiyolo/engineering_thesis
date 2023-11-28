@@ -148,12 +148,12 @@ function encode_message($message, &$groups){
     if (preg_match('/(msg=)/', $message, $matches, PREG_OFFSET_CAPTURE)){
         $regex = "/(" . substr($message, 0, $matches[0][1]) . ")/";
         $id = count($groups);
-        $groups[] = [$id => $regex];
+        $groups[] = $regex;
         return $id;
     } else {
         $regex = "/(" . $message . ")/";
         $id = count($groups);
-        $groups[] = [$id => $regex];
+        $groups[]= $regex;
         return $id;
     }
 }
