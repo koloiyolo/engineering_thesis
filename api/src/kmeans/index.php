@@ -1,4 +1,7 @@
 <?php
+
+$groups = [];
+
 $data = json_decode(get_data("root", "password"));
 $data = encode_data($data);
 echo json_encode($data);
@@ -51,6 +54,8 @@ function encode_data($data)
     $result = [];
     $tmp_mappings = [];
     $mappings = [];
+    $groups = [];
+
     // iter through elem of object
     foreach ($data as $object) {
         $dummy = [];
@@ -58,18 +63,22 @@ function encode_data($data)
         foreach ($object as $key => $value) {
             // if exists mapping with the value in the key
             if ($key !== "datetime") {
-                if (isset($tmp_mappings[$key])) {
-                    if (isset($tmp_mappings[$key][$value])) {
-                        $dummy[] = $tmp_mappings[$key][$value];
+                if ($key === "message"){
+                    $dummy[] = encode_message($value, $groups);
+                }else {
+                    if (isset($tmp_mappings[$key])) {
+                        if (isset($tmp_mappings[$key][$value])) {
+                            $dummy[] = $tmp_mappings[$key][$value];
+                        } else {
+                            // create new mapping
+                            $tmp_mappings[$key][$value] = count($tmp_mappings[$key]);
+                            $dummy[] = $tmp_mappings[$key][$value];
+                        }
                     } else {
-                        // create new mapping
-                        $tmp_mappings[$key][$value] = count($tmp_mappings[$key]);
-                        $dummy[] = $tmp_mappings[$key][$value];
+                        // this if always goes here
+                        $tmp_mappings[$key] = [$value => 0];
+                        $dummy[] = 0;
                     }
-                } else {
-                    // this if always goes here
-                    $tmp_mappings[$key] = [$value => 0];
-                    $dummy[] = 0;
                 }
             }
 
@@ -127,6 +136,24 @@ function get_data($user, $password)
     $statement->close();
 
     return json_encode($data);
+}
+
+function encode_message($message, &$groups){
+    foreach($groups as $key => $value) {
+        if(preg_match($value, $message)) {
+            return $key;
+        }
+    }
+
+    preg_match('/(.*?)(?=msg=)/', $message, $matches);
+    
+    if (!empty($matches)) {
+        $id = count($groups);
+        $groups[] = '/' . $matches[0] . '/';
+        return $id;
+    }
+
+    return null;
 }
 
 function array_to_str($array) {
