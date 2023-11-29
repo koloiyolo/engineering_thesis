@@ -4,11 +4,11 @@ $groups = [];
 
 $data = json_decode(get_data("root", "password"));
 $data = encode_data($data);
+$data = kmeans($data, '3', '100');
 echo json_encode($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
 $data = decode_data($data, $mappings);
-echo json_encode($data);
 
 
 header('Content-Type: application/json');
