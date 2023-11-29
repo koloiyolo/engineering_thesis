@@ -9,8 +9,9 @@ $data = $data['result'];
 $data = kmeans($data, '3', '100');
 $result = decode_data($data, $mappings);
 var_dump($result);
+$count = 0;
 foreach ($result as $cluster) {
-    echo json_encode($cluster) . "\n";
+    echo ++$count . json_encode($cluster) . "\n";
 }
 
 
@@ -33,6 +34,7 @@ function kmeans($data, $centroids, $iters)
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, "http://algorithms:5000/kmeans");
     curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonContent);
 
     $result = curl_exec($curl);
@@ -41,7 +43,6 @@ function kmeans($data, $centroids, $iters)
         return false;
     }
     curl_close($curl);
-    var_dump($result);
     return json_decode($result);
 }
 
@@ -95,20 +96,15 @@ function encode_data($data)
 function decode_data($data, $mappings)
 {
     $result = [];
-    // foreach ($data as $result) {
-        foreach ($data as $cluster) {
-            $tmp_array = [];
-
-            // to delete \/\/\/\/\/\/\
-            // foreach($data as $elem) {
-            foreach ($cluster as $elem) {
-                $tmp = $mappings[array_to_str($elem)];
-                $tmp_array[] = $tmp;
-            }
-
-            $result[] = $tmp_array;
+    foreach ($data as $cluster) {
+        $tmp_array = [];
+        foreach ($cluster as $elem) {
+            $tmp = $mappings[array_to_str($elem)];
+            $tmp_array[] = $tmp;
         }
-    // }
+
+        $result[] = $tmp_array;
+    }
     return $result;
 }
 
