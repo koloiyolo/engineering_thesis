@@ -6,7 +6,7 @@ $data = json_decode(get_data("root", "password"));
 $data = encode_data($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
-$data = json_decode(kmeans($data, '3', '100'));
+$data = kmeans($data, '3', '100');
 $result = decode_data($data, $mappings);
 var_dump($result);
 foreach ($result as $cluster) {
@@ -41,7 +41,8 @@ function kmeans($data, $centroids, $iters)
         return false;
     }
     curl_close($curl);
-    return $result;
+    var_dump($result);
+    return json_decode($result);
 }
 
 // encode data working now
