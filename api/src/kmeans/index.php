@@ -140,7 +140,6 @@ function get_data($user, $password)
 
 function encode_message($message, &$groups){
     foreach($groups as $key => $value) {
-        echo var_dump($groups);
         if(preg_match($value, $message)) {
             return $key;
         }
