@@ -28,7 +28,7 @@ function kmeans($data, $centroids, $iters)
         'iterations' => $iters,
         'data' => $data, 
     ];
-
+    echo "Sending data: ", json_encode($postData);
     $options = [
         'http' => [
             'header' => "Content-type: application/json\r\n",
