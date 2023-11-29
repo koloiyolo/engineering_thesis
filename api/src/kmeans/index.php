@@ -18,6 +18,7 @@ echo json_encode($data);
 // execute kmeans algorithm on "algorithms" server and retrive result
 function kmeans($data, $centroids, $iters)
 {
+    echo json_encode($data);
     $postData = [
         'centroids' => $centroids,
         'iterations' => $iters,
