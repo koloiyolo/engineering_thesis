@@ -27,8 +27,8 @@ function kmeans($data, $centroids, $iters)
         'data' => json_encode($data)
     ];
 
-// Encode the JSON data
-    $jsonContent =  http_build_query($postData);
+    // Encode the JSON data
+    $jsonContent = http_build_query($postData);
 
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, "http://algorithms:5000/kmeans");
@@ -59,9 +59,9 @@ function encode_data($data)
         foreach ($object as $key => $value) {
             // if exists mapping with the value in the key
             if ($key !== "datetime") {
-                if ($key === "message"){
+                if ($key === "message") {
                     $dummy[] = encode_message($value, $groups);
-                }else {
+                } else {
                     if (isset($tmp_mappings[$key])) {
                         if (isset($tmp_mappings[$key][$value])) {
                             $dummy[] = $tmp_mappings[$key][$value];
@@ -94,19 +94,21 @@ function encode_data($data)
 function decode_data($data, $mappings)
 {
     $result = [];
-    foreach($data as $array) {
-        $tmp_array = [];
+    foreach ($data as $result) {
+        foreach ($data as $cluster) {
+            $tmp_array = [];
 
-        // to delete \/\/\/\/\/\/\
-        // foreach($data as $elem) {
-        foreach($array as $elem) {
-            $tmp = $mappings[array_to_str($elem)];
-            $tmp_array[] = $tmp;
+            // to delete \/\/\/\/\/\/\
+            // foreach($data as $elem) {
+            foreach ($cluster as $elem) {
+                $tmp = $mappings[array_to_str($elem)];
+                $tmp_array[] = $tmp;
+            }
+
+            $result[] = $tmp_array;
         }
-
-        $result[] = $tmp_array;
-   }
-        return $result;
+    }
+    return $result;
 }
 
 
@@ -134,14 +136,15 @@ function get_data($user, $password)
     return json_encode($data);
 }
 
-function encode_message($message, &$groups){
-    foreach($groups as $key => $value) {
-        if(preg_match($value, $message)) {
+function encode_message($message, &$groups)
+{
+    foreach ($groups as $key => $value) {
+        if (preg_match($value, $message)) {
             return $key;
         }
     }
-    
-    if (preg_match('/(msg=)/', $message, $matches, PREG_OFFSET_CAPTURE)){
+
+    if (preg_match('/(msg=)/', $message, $matches, PREG_OFFSET_CAPTURE)) {
         $regex = "/(" . substr($message, 0, $matches[0][1]) . ")/";
         $id = count($groups);
         echo $regex;
@@ -151,16 +154,17 @@ function encode_message($message, &$groups){
         $regex = "/(" . $message . ")/";
         $id = count($groups);
         echo $regex;
-        $groups[]= $regex;
+        $groups[] = $regex;
         return $id;
     }
 }
 
-function array_to_str($array) {
+function array_to_str($array)
+{
     $result = "";
-    foreach($array as $elem) {
+    foreach ($array as $elem) {
         $result .= $elem . ", ";
-    } 
+    }
     return $result;
 }
 ?>
