@@ -149,6 +149,7 @@ function encode_message($message, &$groups){
     } else {
         $regex = "/(" . $message . ")/";
         $id = count($groups);
+        echo $regex;
         $groups[]= $regex;
         return $id;
     }
