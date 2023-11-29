@@ -7,8 +7,10 @@ $data = encode_data($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, '3', '100');
-echo json_encode($data);
 $data = decode_data($data, $mappings);
+foreach ($data as $cluster) {
+    echo json_encode($cluster) . "\n";
+}
 
 
 header('Content-Type: application/json');
@@ -18,7 +20,6 @@ echo json_encode($data);
 // execute kmeans algorithm on "algorithms" server and retrive result
 function kmeans($data, $centroids, $iters)
 {
-    echo json_encode($data);
     $postData = [
         'centroids' => $centroids,
         'iterations' => $iters,
@@ -92,18 +93,18 @@ function encode_data($data)
 function decode_data($data, $mappings)
 {
     $result = [];
-    // foreach($data as $array) {
+     foreach($data as $array) {
         $tmp_array = [];
 
         // to delete \/\/\/\/\/\/\
-        foreach($data as $elem) {
-        //foreach($array as $elem) {
+        // foreach($data as $elem) {
+        foreach($array as $elem) {
             $tmp = $mappings[array_to_str($elem)];
             $tmp_array[] = $tmp;
         }
 
         $result[] = $tmp_array;
-   // }
+   }
         return $result;
 }
 
