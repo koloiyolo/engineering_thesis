@@ -4,6 +4,7 @@ $groups = [];
 
 $data = json_decode(get_data("root", "password"));
 $data = encode_data($data);
+$data = $data['result'];
 $data = kmeans($data, '3', '100');
 echo json_encode($data);
 $mappings = $data['mappings'];
