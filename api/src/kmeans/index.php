@@ -22,7 +22,7 @@ function kmeans($data, $centroids, $iters)
     $postData = [
         'centroids' => $centroids,
         'iterations' => $iters,
-        'data' => $data
+        'data' => json_encode($data)
     ];
 
 // Encode the JSON data
