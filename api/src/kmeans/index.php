@@ -20,10 +20,13 @@ function kmeans($data, $centroids, $iters)
 {
     $url = 'http://algorithms:5000/kmeans';
 
+    echo $centroids;
+    echo $iters;
+
     $postData = [
-        'data' => $data, 
         'centroids' => $centroids,
         'iterations' => $iters,
+        'data' => $data, 
     ];
 
     $options = [
