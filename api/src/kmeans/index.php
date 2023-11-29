@@ -4,11 +4,10 @@ $groups = [];
 
 $data = json_decode(get_data("root", "password"));
 $data = encode_data($data);
+$mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, '3', '100');
 echo json_encode($data);
-$mappings = $data['mappings'];
-$data = $data['result'];
 $data = decode_data($data, $mappings);
 
 
@@ -19,36 +18,26 @@ echo json_encode($data);
 // execute kmeans algorithm on "algorithms" server and retrive result
 function kmeans($data, $centroids, $iters)
 {
-    $url = 'http://algorithms:5000/kmeans';
-
-    echo $centroids;
-    echo $iters;
-
     $postData = [
         'centroids' => $centroids,
         'iterations' => $iters,
-        'data' => $data, 
-    ];
-    echo "Sending data: ", json_encode($postData);
-    $options = [
-        'http' => [
-            'header' => "Content-type: application/json\r\n",
-            'method' => 'POST',
-            'content' => json_encode($postData),
-        ],
+        'data' => $data
     ];
 
-    $context = stream_context_create($options);
+// Encode the JSON data
+    $jsonContent =  http_build_query($postData);
 
-    $result = file_get_contents($url, false, $context);
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, "http://127.0.0.1:5000/kmeans");
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonContent);
+
+    $result = curl_exec($curl);
     if ($result === false) {
         echo "Error processing request";
         return false;
     }
-
-    echo "Server response: ";
-    var_dump($result);
-
+    curl_close($curl);
     return $result;
 }
 
