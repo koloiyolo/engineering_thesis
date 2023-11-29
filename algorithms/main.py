@@ -10,9 +10,9 @@ app = Flask(__name__)
 def kmeans_route():
     if request.method == 'POST':
         try:
-            centroids = int(request.form.get('centroids'))
-            iters = int(request.form.get('iterations'))
-            data = json.loads(request.form.get('data'))
+            centroids = int(request.json.get('centroids'))
+            iters = int(request.json.get('iterations'))
+            data = request.json.get('data')
             print(centroids)
             print(data)
             if not isinstance(data, list) or any(not isinstance(pair, list) or len(pair) != 2 or any(not isinstance(coord, float) for coord in pair) for pair in data):
