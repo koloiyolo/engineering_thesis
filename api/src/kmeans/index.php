@@ -6,8 +6,7 @@ $data = json_decode(get_data("root", "password"));
 $data = encode_data($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
-$data = kmeans($data, '3', '100');
-echo json_encode($mappings);
+$data = json_decode(kmeans($data, '3', '100'));
 $data = decode_data($data, $mappings);
 foreach ($data as $cluster) {
     echo json_encode($cluster) . "\n";
@@ -94,7 +93,7 @@ function encode_data($data)
 function decode_data($data, $mappings)
 {
     $result = [];
-    foreach ($data as $result) {
+    // foreach ($data as $result) {
         foreach ($data as $cluster) {
             $tmp_array = [];
 
@@ -107,7 +106,7 @@ function decode_data($data, $mappings)
 
             $result[] = $tmp_array;
         }
-    }
+    // }
     return $result;
 }
 
