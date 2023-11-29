@@ -8,7 +8,6 @@ $mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, '3', '100');
 $result = decode_data($data, $mappings);
-var_dump($result);
 $count = 0;
 foreach ($result as $cluster) {
     echo ++$count . json_encode($cluster) . "\n";
