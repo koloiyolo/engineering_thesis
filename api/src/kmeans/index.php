@@ -28,7 +28,7 @@ function kmeans($data, $centroids, $iters)
     $jsonContent =  http_build_query($postData);
 
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, "http://127.0.0.1:5000/kmeans");
+    curl_setopt($curl, CURLOPT_URL, "http://algorithms:5000/kmeans");
     curl_setopt($curl, CURLOPT_POST, 1);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonContent);
 
