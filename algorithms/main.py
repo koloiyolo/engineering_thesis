@@ -21,7 +21,7 @@ def kmeans_route():
         except (ValueError, json.JSONDecodeError) as e:
             return jsonify({'error': f'Invalid data format: {str(e)}'}), 400
 
-        return jsonify('clusters', kmeans.kmeans(data, centroids, iters))
+        return jsonify(kmeans.kmeans(data, centroids, iters))
 
 
 if __name__ == '__main__':

@@ -93,7 +93,7 @@ function encode_data($data)
 function decode_data($data, $mappings)
 {
     $result = [];
-     foreach($data as $array) {
+    foreach($data as $array) {
         $tmp_array = [];
 
         // to delete \/\/\/\/\/\/\
