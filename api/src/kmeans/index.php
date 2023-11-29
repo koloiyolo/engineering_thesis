@@ -11,14 +11,10 @@ $mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, '3', '100');
 $result = decode_data($data, $mappings);
-$count = 0;
-foreach ($result as $cluster) {
-    echo ++$count . json_encode($cluster) . "\n";
-}
 
 
 header('Content-Type: application/json');
-echo json_encode($data);
+echo json_encode($result);
 
 
 // execute kmeans algorithm on "algorithms" server and retrive result
