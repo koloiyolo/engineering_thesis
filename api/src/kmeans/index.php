@@ -119,7 +119,7 @@ function get_data($user, $password)
         exit();
     }
 
-    $statement = $mysqli->prepare("SELECT * FROM logs");
+    $statement = $mysqli->prepare("SELECT datetime, tags, message FROM logs");
     $statement->execute();
     $result = $statement->get_result();
     $data = [];
