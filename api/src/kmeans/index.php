@@ -7,6 +7,7 @@ $data = encode_data($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
 $data = kmeans($data, '3', '100');
+echo json_encode($mappings);
 $data = decode_data($data, $mappings);
 foreach ($data as $cluster) {
     echo json_encode($cluster) . "\n";
