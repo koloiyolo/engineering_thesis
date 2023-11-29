@@ -7,8 +7,9 @@ $data = encode_data($data);
 $mappings = $data['mappings'];
 $data = $data['result'];
 $data = json_decode(kmeans($data, '3', '100'));
-$data = decode_data($data, $mappings);
-foreach ($data as $cluster) {
+$result = decode_data($data, $mappings);
+var_dump($result);
+foreach ($result as $cluster) {
     echo json_encode($cluster) . "\n";
 }
 
@@ -146,13 +147,11 @@ function encode_message($message, &$groups)
     if (preg_match('/(msg=)/', $message, $matches, PREG_OFFSET_CAPTURE)) {
         $regex = "/(" . substr($message, 0, $matches[0][1]) . ")/";
         $id = count($groups);
-        echo $regex;
         $groups[] = $regex;
         return $id;
     } else {
         $regex = "/(" . $message . ")/";
         $id = count($groups);
-        echo $regex;
         $groups[] = $regex;
         return $id;
     }
