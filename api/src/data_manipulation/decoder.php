@@ -158,8 +158,8 @@ class Decoder
                 $comp += $this->equal_substring_length($tmp_string, $messages[$i]);
             }
             $comp = $comp / ($arraylen - $start);
-            $tmp[$messages[$i]] = $comp;
-            $tmp[$tmp_string] = $comp;
+            $tmp[$messages[$i]][] = $comp;
+            $tmp[$tmp_string][] = $comp;
             $start++;
         }
 
