@@ -100,7 +100,7 @@ class Decoder
 
         for ($i = 0; $i < count($encoded); $i++) {
             $tmp = $encoded[$i] / $min_max_interval;
-            $encoded[$i] = $tmp;
+            $encoded[$i] = round($tmp, 5);
         }
 
         return $encoded;
@@ -129,8 +129,7 @@ class Decoder
 
         }
         foreach ($tags as $tag) {
-            $tmp = $tmp_mappings[$tag] / count($tmp_mappings);
-            $encoded[] = $tmp;
+            $encoded[] = round($tmp_mappings[$tag] / count($tmp_mappings), 5);
         }
 
         return $encoded;
@@ -184,8 +183,7 @@ class Decoder
         }
 
         foreach ($t as $elem) {
-            $test = ($elem - $min) / ($max - $min);
-            $encoded[] = $test;
+            $encoded[] = round(($elem - $min) / ($max - $min), 5);
         }
 
         return $encoded;
