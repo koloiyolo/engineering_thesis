@@ -167,6 +167,7 @@ class Decoder
             $count = 0;
             $sum = 0;
             foreach ($elem as $record) {
+                echo $elem;
                 $count++;
                 $sum += $record;
             }
@@ -200,7 +201,7 @@ class Decoder
 
         for ($i = 0; $i < $length; $i++) {
             if ($str1[$i] === $str2[$i]) {
-                $equalLength++;
+                $equal_length++;
             } else {
                 break;
             }
