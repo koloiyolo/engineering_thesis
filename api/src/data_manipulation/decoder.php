@@ -175,6 +175,7 @@ class Decoder
                 $sum += $record;
             }
             $t[] = $sum / $count;
+            var_dump($t);
 
         }
 
