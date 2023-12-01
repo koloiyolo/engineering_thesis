@@ -166,6 +166,7 @@ class Decoder
             $tmp[$tmp_string][] = $comp;
             $start++;
         }
+        echo count($tmp);
 
         foreach ($tmp as $elem) {
             $count = 0;
@@ -177,7 +178,7 @@ class Decoder
             $t[] = $sum / $count;
 
         }
-
+        echo count($t);
         $min = reset($t);
         $max = reset($t);
 
