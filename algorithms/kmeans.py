@@ -5,7 +5,7 @@ import maths
 
 def kmeans(data, centroid_count, iters=100):
 
-    # min = maths.getmin(data)
+    min = maths.getmin(data)
     # max = maths.getmax(data)
 
     data_with_centroids = []
