@@ -156,9 +156,8 @@ class Decoder
             foreach($messages as $iter2) {
                 $comp += $this->equal_substring_length($iter2, $iter1);
             }
-            $comp = $comp / ($arraylen - $start);
+            $comp = $comp / ($arraylen);
             $tmp[$iter1][] = $comp;
-            $start++;
         }
 
         foreach ($tmp as $elem) {
