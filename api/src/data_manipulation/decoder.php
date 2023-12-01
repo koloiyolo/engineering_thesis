@@ -124,7 +124,7 @@ class Decoder
         $count = 0;
         foreach ($tags as $tag) {
             if (!isset($tmp_mappings[$tag])) {
-                $tmp_mappings[] = [$tag => $count];
+                $tmp_mappings[$tag] = $count;
                 $count++;
             }
 
@@ -151,19 +151,15 @@ class Decoder
         $arraylen = count($messages);
         $start = 0;
 
-        for ($i = 0; $i < $arraylen; $i++) {
-            $tmp_string = "";
+        foreach($messages as $iter1) {
             $comp = 0;
-            for ($j = $start; $j < $arraylen; $j++) {
-                $tmp_string = $messages[$j];
-                $comp += $this->equal_substring_length($tmp_string, $messages[$i]);
+            foreach($messages as $iter2) {
+                $comp += $this->equal_substring_length($iter2, $iter1);
             }
             $comp = $comp / ($arraylen - $start);
-            $tmp[$messages[$i]][] = $comp;
-            $tmp[$tmp_string][] = $comp;
+            $tmp[$iter1][] = $comp;
             $start++;
         }
-        echo count($tmp);
 
         foreach ($tmp as $elem) {
             $count = 0;
@@ -175,7 +171,7 @@ class Decoder
             $t[] = $sum / $count;
 
         }
-        echo count($t);
+
         $min = reset($t);
         $max = reset($t);
 
@@ -191,9 +187,7 @@ class Decoder
             $test = ($elem - $min) / ($max - $min);
             $encoded[] = $test;
         }
-        echo count($encoded);
-        echo $arraylen;
-        echo json_encode($encoded);
+
         return $encoded;
     }
 
