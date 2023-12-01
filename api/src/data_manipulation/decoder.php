@@ -187,7 +187,9 @@ class Decoder
         }
 
         foreach ($t as $elem) {
-            $encoded[] = ($elem - $min) / ($max - $min);
+            $test = ($elem - $min) / ($max - $min);
+            echo $test;
+            $encoded[] = $test;
         }
 
         return $encoded;
