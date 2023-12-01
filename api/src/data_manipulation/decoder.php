@@ -79,7 +79,7 @@ class Decoder
 
         // find first and last date
         foreach ($dates as $date) {
-            $date = $this->convert_to_datetime(reset($date));
+            $date = $this->convert_to_datetime($date);
             if ($date < $min) {
                 $min = $date;
             } elseif ($date > $max) {
@@ -89,7 +89,7 @@ class Decoder
 
         // calculate intervals
         foreach ($dates as $date) {
-            $date = $this->convert_to_datetime(reset($date));
+            $date = $this->convert_to_datetime($date);
             $interval = $date->diff($min);
             $encoded[] = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
         }
