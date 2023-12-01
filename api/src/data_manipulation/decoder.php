@@ -109,12 +109,6 @@ class Decoder
     private function convert_to_datetime($dateString)
     {
         $date = DateTime::createFromFormat('M d H:i:s', substr($dateString, 1, -1));
-
-        if ($date !== false) {
-            echo $date->format('Y-m-d H:i:s');
-        } else {
-            echo "Invalid date format";
-        }
         return $date;
     }
 

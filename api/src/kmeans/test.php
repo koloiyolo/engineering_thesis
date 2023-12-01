@@ -6,7 +6,7 @@ $data = json_decode(get_data('root', 'password'));
 $decoder = new Decoder($data);
 
 $data = $decoder->encode_data();
-echo json_encode($data);
+var_dump($data);
 
 
 
