@@ -175,7 +175,7 @@ class Decoder
                 $sum += $record;
             }
             $t[] = $sum / $count;
-            var_dump($t);
+            echo json_encode($t);
 
         }
 
