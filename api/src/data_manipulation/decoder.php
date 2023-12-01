@@ -124,7 +124,7 @@ class Decoder
         $count = 0;
         foreach ($tags as $tag) {
             if (!isset($tmp_mappings[$tag])) {
-                $tmp_mappings[] = ['tag' => $count];
+                $tmp_mappings[] = [$tag => $count];
                 $count++;
             }
 
