@@ -146,6 +146,7 @@ class Decoder
         $messages = $this->messages;
         $encoded = [];
         $tmp = [];
+        $t = [];
 
         $arraylen = count($messages);
         $start = 0;
@@ -167,18 +168,17 @@ class Decoder
             $count = 0;
             $sum = 0;
             foreach ($elem as $record) {
-                echo $elem;
                 $count++;
                 $sum += $record;
             }
-            $elem = $sum / $count;
+            $t[] = $sum / $count;
 
         }
 
-        $min = reset($tmp);
-        $max = reset($tmp);
+        $min = reset($t);
+        $max = reset($t);
 
-        foreach ($tmp as $elem) {
+        foreach ($t as $elem) {
             if ($elem < $min) {
                 $min = $elem;
             } elseif ($elem > $max) {
@@ -186,7 +186,7 @@ class Decoder
             }
         }
 
-        foreach ($tmp as $elem) {
+        foreach ($t as $elem) {
             $encoded[] = ($elem - $min) / ($max - $min);
         }
 
