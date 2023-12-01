@@ -14,6 +14,7 @@ class Decoder
         $this->data = $data;
 
         // split objects into separate arrays
+        
         foreach ($data as $log) {
             foreach ($log as $key => $value) {
                 if ($key === 'datetime') {
@@ -50,25 +51,21 @@ class Decoder
     public function decode_data($data)
     {
         $decoded = [];
-        //foreach ($data as $cluster) {
-          //  $tmp_cluster = [];
-            foreach ($data as $elem) {
-                echo json_encode($elem);
-                // $object = [];
-                // $object[] = $this->mappings['datetimes'][$elem[0]];
-                // $object[] = $this->mappings['tags'][$elem[1]];
-                // $object[] = $this->mappings['message'][$elem[2]];
-                // $tmp_cluster[] = $object;
-                $decoded[] = $this->mappings[$this->array_to_str($elem)];
+        foreach ($data as $cluster) {
+           $tmp_cluster = [];
+            foreach ($cluster as $elem) {
+
+                $tmp_cluster[] = $this->mappings[$this->array_to_str($elem)];
             }
 
-            //$decoded[] = $tmp_cluster;
-        //}
+            $decoded[] = $tmp_cluster;
+        }
         return $decoded;
     }
 
 
     // DATES
+
     private function encode_dates()
     {
         $dates = $this->dates;
@@ -78,6 +75,7 @@ class Decoder
         $min_max_interval = 0;
 
         // find first and last date
+
         foreach ($dates as $date) {
             $date = $this->convert_to_datetime($date);
             if ($date < $min) {
@@ -88,6 +86,7 @@ class Decoder
         }
 
         // calculate intervals
+
         foreach ($dates as $date) {
             $date = $this->convert_to_datetime($date);
             $interval = $date->diff($min);

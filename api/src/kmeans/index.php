@@ -1,17 +1,18 @@
 <?php
-include("../data_manipulation/encoder.php");
 include("../data_manipulation/get_data.php");
+include("../data_manipulation/decoder.php");
 
 
+// get data from db
+$data = json_decode(get_data('root', 'password'));
 
-$groups = [];
-$data = json_decode(get_data("root", "password"));
-$data = encode_data($data);
-$mappings = $data['mappings'];
-$data = $data['result'];
+// init decoder
+$decoder = new Decoder($data);
+$data = $decoder->encode_data();
+
+// execute query on kmeans server
 $data = kmeans($data, '3', '100');
-$result = decode_data($data, $mappings);
-
+$result = $decoder->decode_data($data);
 
 header('Content-Type: application/json');
 echo json_encode($result);
