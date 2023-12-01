@@ -5,14 +5,14 @@ import maths
 
 def kmeans(data, centroid_count, iters=100):
 
-    min = maths.getmin(data)
-    max = maths.getmax(data)
+    # min = maths.getmin(data)
+    # max = maths.getmax(data)
 
     data_with_centroids = []
     centroids = []
     clusters = []
     for _ in range(centroid_count):
-        centroids.append([randrange(min[i], max[i]) for i in range(len(min))])
+        centroids.append([(randrange(0, 1000) / 1000) for i in range(len(min))])
 
     for _ in range(iters):
         data_with_centroids.clear()
