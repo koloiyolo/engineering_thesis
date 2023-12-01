@@ -58,7 +58,7 @@ class Decoder
                 // $object[] = $this->mappings['tags'][$elem[1]];
                 // $object[] = $this->mappings['message'][$elem[2]];
                 // $tmp_cluster[] = $object;
-                $tmp_cluster[] = $this->mappings[array_to_str($elem)];
+                $tmp_cluster[] = $this->mappings[$this->array_to_str($elem)];
             }
 
             $decoded[] = $tmp_cluster;
