@@ -50,19 +50,19 @@ class Decoder
     public function decode_data($data)
     {
         $decoded = [];
-        foreach ($data as $cluster) {
-            $tmp_cluster = [];
-            foreach ($cluster as $elem) {
+        //foreach ($data as $cluster) {
+          //  $tmp_cluster = [];
+            foreach ($data as $elem) {
                 // $object = [];
                 // $object[] = $this->mappings['datetimes'][$elem[0]];
                 // $object[] = $this->mappings['tags'][$elem[1]];
                 // $object[] = $this->mappings['message'][$elem[2]];
                 // $tmp_cluster[] = $object;
-                $tmp_cluster[] = $this->mappings[$this->array_to_str($elem)];
+                $decoded[] = $this->mappings[$this->array_to_str($elem)];
             }
 
-            $decoded[] = $tmp_cluster;
-        }
+            //$decoded[] = $tmp_cluster;
+        //}
         return $decoded;
     }
 
