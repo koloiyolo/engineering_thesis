@@ -40,6 +40,9 @@ class Decoder
         $tmp_messages = $this->encode_messages();
 
         for ($i = 0; $i < $arraylen; $i++) {
+            if(!isset($tmp_messages[$i])) {
+                echo json_encode($data[$i]);
+            }
             $elem = [$tmp_dates[$i], $tmp_tags[$i], $tmp_messages[$i]];
             $encoded[] = $elem;
             $this->mappings[] = [$this->array_to_str($elem) => $data[$i]];
