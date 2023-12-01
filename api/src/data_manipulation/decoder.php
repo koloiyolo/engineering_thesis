@@ -40,9 +40,9 @@ class Decoder
         $tmp_messages = $this->encode_messages();
 
         for ($i = 0; $i < $arraylen; $i++) {
-            if(!isset($tmp_messages[$i])) {
-                echo json_encode($data[$i]);
-            }
+            // if(!isset($tmp_messages[$i])) {
+            //     echo json_encode($data[$i]);
+            // }
             $elem = [$tmp_dates[$i], $tmp_tags[$i], $tmp_messages[$i]];
             $encoded[] = $elem;
             $this->mappings[] = [$this->array_to_str($elem) => $data[$i]];
@@ -175,7 +175,6 @@ class Decoder
                 $sum += $record;
             }
             $t[] = $sum / $count;
-            echo json_encode($t);
 
         }
 
@@ -192,10 +191,10 @@ class Decoder
 
         foreach ($t as $elem) {
             $test = ($elem - $min) / ($max - $min);
-            echo $test;
             $encoded[] = $test;
         }
-
+        echo $arraylen;
+        echo json_encode($encoded);
         return $encoded;
     }
 
