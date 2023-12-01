@@ -44,7 +44,7 @@ class Decoder
             $encoded[] = $elem;
             $this->mappings[] = [$this->array_to_str($elem) => $data[$i]];
         }
-
+        echo json_encode($this->mappings);
         return $encoded;
     }
 
