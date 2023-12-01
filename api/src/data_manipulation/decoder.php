@@ -42,7 +42,7 @@ class Decoder
         for ($i = 0; $i < $arraylen; $i++) {
             $elem = [$tmp_dates[$i], $tmp_tags[$i], $tmp_messages[$i]];
             $encoded[] = $elem;
-            $this->mappings[] = [$this->array_to_str($elem) => $data[$i]];
+            $this->mappings[$this->array_to_str($elem)] = $data[$i];
         }
         return $encoded;
     }
@@ -53,6 +53,7 @@ class Decoder
         //foreach ($data as $cluster) {
           //  $tmp_cluster = [];
             foreach ($data as $elem) {
+                echo json_encode($elem);
                 // $object = [];
                 // $object[] = $this->mappings['datetimes'][$elem[0]];
                 // $object[] = $this->mappings['tags'][$elem[1]];
