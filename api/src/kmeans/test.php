@@ -7,7 +7,7 @@ $decoder = new Decoder($data);
 
 $data = $decoder->encode_data();
 echo json_encode($data);
-$data = $decoder->encode_data();
+$data = $decoder->decode_data($data);
 echo json_encode($data);
 
 
