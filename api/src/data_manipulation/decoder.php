@@ -44,7 +44,6 @@ class Decoder
             $encoded[] = $elem;
             $this->mappings[] = [$this->array_to_str($elem) => $data[$i]];
         }
-        echo json_encode($this->mappings);
         return $encoded;
     }
 
@@ -151,13 +150,15 @@ class Decoder
         $arraylen = count($messages);
         $start = 0;
 
-        foreach($messages as $iter1) {
+        for ($i = 0; $i < $arraylen; $i++) {
             $comp = 0;
-            foreach($messages as $iter2) {
-                $comp += $this->equal_substring_length($iter2, $iter1);
+            for ($j = $start; $j < $arraylen; $j++) {
+                $comp += $this->equal_substring_length($messages[$j], $messages[$i]);
             }
-            $comp = $comp / ($arraylen);
-            $tmp[$iter1][] = $comp;
+            $comp = $comp / ($arraylen - $start);
+            $tmp[$i][] = $comp;
+            $tmp[$j][] = $comp;
+            $start++;
         }
 
         foreach ($tmp as $elem) {
