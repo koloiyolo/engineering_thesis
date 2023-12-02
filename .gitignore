@@ -19,3 +19,5 @@ Thumbs.db
 # Ignore temporary files or logs
 *.log
 *.tmp
+algorithms/__pycache__/kmeans.cpython-312.pyc
+algorithms/__pycache__/maths.cpython-312.pyc

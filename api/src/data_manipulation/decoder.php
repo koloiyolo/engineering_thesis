@@ -147,17 +147,15 @@ class Decoder
         $t = [];
 
         $arraylen = count($messages);
-        $start = 0;
 
         for ($i = 0; $i < $arraylen; $i++) {
             $comp = 0;
-            for ($j = $start; $j < $arraylen; $j++) {
+            for ($j = $i; $j < $arraylen; $j++) {
                 $comp += $this->equal_substring_length($messages[$j], $messages[$i]);
             }
-            $comp = $comp / ($arraylen - $start);
+            $comp = $comp / ($arraylen - $i);
             $tmp[$i][] = $comp;
             $tmp[$j][] = $comp;
-            $start++;
         }
 
         foreach ($tmp as $elem) {
