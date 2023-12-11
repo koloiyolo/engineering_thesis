@@ -24,7 +24,7 @@ def getmax(data):
     for elem in data:
         for i, value in enumerate(elem):
             if max[i] < value:
-                max[i] = math.floor(elem[i])
+                max[i] = math.ceil(elem[i])
     return max
 
 
