@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['METHOD'] === 'POST') {
     echo "bp1";
     if (isset($_POST['user']) && isset($_POST['password'])) {
         echo "bp2";
