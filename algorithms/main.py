@@ -5,6 +5,7 @@ import kmeans
 import ahc
 
 app = Flask(__name__)
+kmeans = kmeans.Kmeans()
 
 
 @app.route('/kmeans', methods=['POST'])
@@ -18,7 +19,7 @@ def kmeans_route():
         except (ValueError, json.JSONDecodeError) as e:
             return jsonify({'error': f'Invalid data format: {str(e)}'}), 400
 
-        return jsonify(kmeans.kmeans(data, centroids, iterations))
+        return jsonify(kmeans.exec(data, centroids, iterations))
 
 
 

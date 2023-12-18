@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER['REQUEST'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['user']) && isset($_POST['password'])) {
 
         include("../data_manipulation/connections.php");
