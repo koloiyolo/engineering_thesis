@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'iterations' => $iterations,
             'data' => json_encode($data)
         ];
-        $data = call_api("http://algorithms:5000/kmeans", $kmeams_args);
+        $data = call_api("http://algorithms:5000/kmeans", $kmeans_args);
         $result = $decoder->decode_data($data);
 
         // execute kmeans algorithm on "algorithms" server and retrive result
