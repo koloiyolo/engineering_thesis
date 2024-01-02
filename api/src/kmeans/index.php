@@ -1,9 +1,8 @@
 <?php
-
+header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "bp1";
+
     if (isset($_POST['user']) && isset($_POST['password'])) {
-        echo "bp2";
 
         include("../data_manipulation/connections.php");
         include("../data_manipulation/decoder.php");
@@ -42,8 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $decoder->decode_data($data);
 
         // execute kmeans algorithm on "algorithms" server and retrive result
-        header('Content-Type: application/json');
-        echo "bp3";
         echo json_encode($result);
     }
 } else {
