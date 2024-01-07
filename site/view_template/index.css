@@ -1,0 +1,66 @@
+.navbar {
+    background: #000;
+    height: 28px;
+    font-size: 16px;
+    width: 100vw;
+}
+
+.sidebar {
+    width: 128px;
+    height: calc(100vh - 28px);
+    background: #222;
+}
+
+.filters-bar {
+    background: #222;
+    width: calc(100vw - 128px);
+}
+
+.button {
+    color: whitesmoke;
+    text-decoration: none;
+    border-radius: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 128px;
+    text-align: center;
+    background: #000;
+}
+
+.button:hover {
+    background: #222;
+    cursor: pointer;
+}
+
+.sidebar .button {
+    margin-top: 1px;
+}
+
+.navbar .button {
+    margin-right: 1px;
+}
+
+.navbar .logout{
+    margin-left: auto;
+}
+
+.filters-bar .button {
+    border-radius: 0px;
+    background: #111;
+    width: 10vw;
+}
+
+.filters-bar .button:hover {
+    background: #222;
+}
+
+.filters-bar .unactive:hover {
+    background: #111;
+    cursor: default;
+}
+
+.filters-bar input[type=text] {
+    margin-left: auto;
+    color: white;
+    background: #323232;
+}

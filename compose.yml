@@ -22,7 +22,7 @@ services:
     container_name: api_et
     build: ./api
     ports:  # ports for testing purposes, change to expose
-      - 8000:80
+      - 8001:80
     depends_on:
       - db
      
@@ -44,6 +44,18 @@ services:
     ports:
       - 5000:5000
 
+  site:
+    container_name: site_et
+    image: php:8.2-apache
+    ports:
+      - 8000:80
+    depends_on:
+      - api
+    volumes:
+      - ./site:/var/www/html
+
 
 volumes:
   db:
+  site:
+

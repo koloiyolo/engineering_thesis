@@ -1,6 +1,6 @@
 <?php
-
-if ($_SERVER['REQUEST'] === 'POST') {
+header('Content-Type: application/json');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['user']) && isset($_POST['password'])) {
 
         include("../data_manipulation/connections.php");
