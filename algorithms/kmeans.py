@@ -32,7 +32,7 @@ class Kmeans:
             for _, centroid in enumerate(centroids):
                 count = 0
                 points = []
-                scaling_factor = 2 * len(data)
+                scaling_factor = 5 * len(data)
 
                 for point in data_with_centroids:
                     if point[1] == centroid:
